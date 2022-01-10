@@ -3,7 +3,7 @@ import re
 
 
 # Parse command line arguments
-parser = argparse.ArgumentParser(description='Process some integers.')
+parser = argparse.ArgumentParser(description='Process QSOs to data that can be printed onto QSL labels.')
 
 parser.add_argument('-i', '--input-adif', action='store',
 	help='File name of the .adif file with the QSOs to be processed.')
