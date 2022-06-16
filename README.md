@@ -35,6 +35,11 @@ optional arguments:
   -m, --via-manager     Process QSLs via QSL manager
 ```
 
+## Useful Info
+Example SQL command to filter for multiple QSL conditions in CQRlog:
+```
+select * from view_cqrlog_main_by_qsodate where qsl_s = "SB" or qsl_s = "SD"
+```
 
 ## To Do
 
