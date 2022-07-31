@@ -43,5 +43,6 @@ select * from view_cqrlog_main_by_qsodate where qsl_s = "SB" or qsl_s = "SD"
 
 ## To Do
 
+- Multi-line ADIF support
 - Add examples
 - QSL Manager Support
