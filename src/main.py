@@ -25,7 +25,7 @@ else:
 
 # Compile all regular expressions used to parse ADIF
 RE_FROM_CALL = re.compile(r"^.*<STATION_CALLSIGN:\d+>([^<]*)<.*$")
-RE_VIA_CALL = re.compile(r"^.*<CHANGEME:\d+>([^<]*)<.*$")
+RE_VIA_CALL = re.compile(r"^.*<QSL_VIA:\d+>([^<]*)<.*$")
 RE_TO_CALL = re.compile(r"^.*<CALL:\d+>([^<]*)<.*$")
 RE_DATE = re.compile(r"^.*<QSO_DATE:\d+>([^<]*)<.*$")
 RE_TIME_ON = re.compile(r"^.*<TIME_ON:\d+>([^<]*)<.*$")
