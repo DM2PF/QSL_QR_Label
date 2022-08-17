@@ -9,7 +9,7 @@ Experimental software, use with the some care and verify the results before batc
 
 ## Workflow
 
-1. Export ADIF file of QSOs to be printed onto QSL labels from your log software (tested with CQRLog).
+1. Export ADIF file of QSOs to be printed onto QSL labels from your log software (tested with CQRLog and cloud log).
 1. Run this script, e.g. `python3 main.py -i qsl.adif -o qsl.csv -q 4` creates label data with max. 4 QSOs per single label.
 1. Import the csv into gLabels. Create your custom label template, for the `QR_Data` field use a QR code with approx. 30 x 30 mm² size, then print the labels.
 
@@ -43,6 +43,8 @@ select * from view_cqrlog_main_by_qsodate where qsl_s = "SB" or qsl_s = "SD"
 
 ## To Do
 
-- Multi-line ADIF support
-- Add examples
-- QSL Manager Support
+- [x] Multi-line ADIF support
+- [ ] Add examples
+- [x] QSL Manager Support
+- [ ] Test ADIF formats of more programs
+- [ ] Publish gLabels template
