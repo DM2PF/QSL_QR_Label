@@ -39,7 +39,12 @@ RE_FREQ = re.compile(r"^.*<FREQ:\d+>([^<]*)<.*$")
 # Read ADIF file line by line and fill the QSO list
 qso_list = []
 
-for line in open(args.input_adif, "r"):
+f = open(args.input_adif, "r")
+adif_str = f.read().replace("\n", "")
+adif_str = re.split('<eor>|<EOH>', adif_str)[1:-1]
+# print(adif_str)
+
+for line in adif_str:
 	if RE_TO_CALL.match(line):
 		# Leave QSL Manager empty if there is none
 		if RE_VIA_CALL.match(line):
@@ -55,7 +60,7 @@ for line in open(args.input_adif, "r"):
 			to_call = RE_TO_CALL.match(line).groups()[0],
 			from_call = RE_FROM_CALL.match(line).groups()[0],
 			date_ymd = RE_DATE.match(line).groups()[0],
-			time_hm = RE_TIME_ON.match(line).groups()[0],
+			time_hm = RE_TIME_ON.match(line).groups()[0][:4],
 			band = RE_BAND.match(line).groups()[0],
 			mode = RE_MODE.match(line).groups()[0],
 			rst = RE_RST.match(line).groups()[0],
@@ -79,7 +84,7 @@ class qslLabel:
 		self.qso_list = []
 
 
-	def __repr__(self):
+	def __str__(self):
 		return self.to_call
 
 
@@ -98,7 +103,7 @@ class qslLabel:
 		for qso in self.qso_list:
 			qr += "\n"
 			qr += "Date: " + qso["date_ymd"][6:8] + "." + qso["date_ymd"][4:6] + "." + qso["date_ymd"][2:4] + " "
-			qr += "Time: " + qso["time_hm"][:2] + ':' + qso["time_hm"][2:] + " "
+			qr += "Time: " + qso["time_hm"][:2] + ':' + qso["time_hm"][2:4] + " "
 			qr += "Band: " + qso["band"].lower() + " "
 			qr += "Mode: " + qso["mode"] + " "
 			qr += "RST: " + qso["rst"] + " "
@@ -138,12 +143,12 @@ with open(args.output, "w", encoding="utf8") as f:
 	for lbl in label_list:
 		# Output Label only if it matches wether or not to create labels via QSL manager
 		if args.via_manager == (len(lbl.via_call) > 0):
-			# Replace 0 with zero with Stroke
+			# Replace 0 with zero with stroke
 			csv_str = '"' + lbl.to_call.replace("0", "Ø") + '";' + '"' + lbl.via_call.replace("0", "Ø") + '";'
 			for qso in lbl.qso_list:
 				csv_str += '"' + qso["date_ymd"][:4] + '-' + qso["date_ymd"][4:6] + '-' + qso["date_ymd"][6:8] + '";'
 				csv_str += '"' + qso["time_hm"][:2] + ':' + qso["time_hm"][2:] + '";'
-				csv_str += '"' + qso["freq"] + '";'
+				csv_str += '"' + qso["freq"][:7] + '";'
 				csv_str += '"' + qso["mode"] + '";'
 				csv_str += '"' + qso["rst"] + '";'
 
