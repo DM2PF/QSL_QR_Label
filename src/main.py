@@ -41,7 +41,8 @@ qso_list = []
 
 f = open(args.input_adif, "r")
 adif_str = f.read().replace("\n", "")
-adif_str = re.split('<eor>|<EOH>', adif_str)[1:-1]
+print(adif_str)
+adif_str = re.split('<eor>|<EOR>', adif_str)[1:-1]
 # print(adif_str)
 
 for line in adif_str:
